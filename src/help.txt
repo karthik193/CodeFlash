@@ -1,0 +1,14 @@
+HOW TO CLONE PROJECT FROM GIT
+_______________________________________________________________________________
+1. copy this url "https://github.com/karthik193/CodeFlash.git"
+2. clone the repository in VS code using 'clone repository' option.
+
+HOW TO RUN THE PROJECT 
+________________________________________________________________________________
+1. to run the project use the command 'npm start'
+2. before using running the project run the command 'npm i' to install all the 
+   packages needed for the project.
+
+HELP
+_______________________________________________________________________________
+1. any information related to the project will be updated in 'help.txt' in src.
