@@ -1,0 +1,37 @@
+.language {
+    display: inline;
+  }
+  .heading {
+    font-size: 20px;
+  }
+  #source {
+    width: 100% !important;
+    background: #cccccc52;
+    height: 50vh;
+    font-size: 15px;
+    resize: vertical;
+  }
+  #input {
+    background: #ecc3c352;
+    width: 45.6%;
+    height: 17vh;
+    float: left;
+    resize: vertical;
+    font-size: 17px;
+  }
+  #optext{
+    float:right;
+  }
+  #iptext{
+    float:left;
+  }
+  #output {
+    background: #cccccc52;
+    width: 45.6%;
+    height: 17vh;
+    float:right;
+    font-size: 18px;
+  }
+  .language {
+    width: 150px;
+  }
