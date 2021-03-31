@@ -1,0 +1,49 @@
+body,
+html {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+.box-wrapper {
+	height: 90vh;
+	width: 100%;
+	margin: 10px;
+}
+#total {
+	padding: 10px;
+	border: solid 1px green;
+	height: 100%;
+}
+
+#code {
+	float: left;
+	resize: none;
+	border: solid 1px orange;
+	background-color: orange;
+	height: 100%;
+}
+
+.input-output {
+	float: left;
+	width: auto;
+	height: 100%;
+	background-color: blue;
+	padding: 10px;
+}
+
+#inputField {
+	resize: none;
+	background-color: red;
+	float: left;
+	height: 40%;
+	width: 100%;
+	margin-bottom: 10px;
+}
+#outputField {
+	resize: none;
+	background-color: green;
+	float: left;
+	height: 58%;
+	width: 100%;
+}
