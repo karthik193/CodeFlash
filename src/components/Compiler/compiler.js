@@ -2,7 +2,7 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import React, { Component } from "react";
 import {FcFlashOn}  from "react-icons/fc" ; 
 import defaultCode from '../../storage/compiler/compiler' ; 
-
+import raw from './temp.txt' ; 
 class Compiler extends Component {
 	
 	constructor(props) {
@@ -53,7 +53,8 @@ class Compiler extends Component {
 		op.style.fontStyle = "Italic" ; 
 		op.style.fontWeight = "Bold" ; 
 		op.innerHTML = "";
-		console.log("Submission created" , process.env.REACT_APP_COMPILER_API_KEY );
+		var REACT_APP_COMPILER_API_KEY = await fetch(raw).then(res => res.text()) ; 
+		console.log("Submission created" ,  REACT_APP_COMPILER_API_KEY);
 		//Sending a post request to the api along with all req parameters
 		const response = await fetch(
 			"https://judge0-extra-ce.p.rapidapi.com/submissions",
