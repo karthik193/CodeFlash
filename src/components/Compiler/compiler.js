@@ -4,6 +4,7 @@ import {FcFlashOn}  from "react-icons/fc" ;
 import defaultCode from '../../storage/compiler/compiler' ; 
 
 class Compiler extends Component {
+	
 	constructor(props) {
 		super(props);
 
@@ -39,6 +40,7 @@ class Compiler extends Component {
 	};
 
 	user_lang = (event) => {
+		
 		event.preventDefault();
 		this.setState({ lang: event.target.value });
 		
@@ -60,8 +62,7 @@ class Compiler extends Component {
 				headers: {
 					"content-type": "application/json",
 					accept: "application/json",
-					"x-rapidapi-key":
-						"5c3346ba24mshc95a6692864c468p121751jsn16e1a102fa7f",
+					"x-rapidapi-key":process.env.REACT_APP_COMPILER_API_KEY,
 					"x-rapidapi-host": "judge0-extra-ce.p.rapidapi.com",
 					useQueryString: true,
 				},
@@ -103,8 +104,7 @@ class Compiler extends Component {
 					headers: {
 						"content-type": "application/json",
 						accept: "application/json",
-						"x-rapidapi-key":
-							"5c3346ba24mshc95a6692864c468p121751jsn16e1a102fa7f",
+						"x-rapidapi-key": process.env.REACT_APP_COMPILER_API_KEY,
 						"x-rapidapi-host": "judge0-extra-ce.p.rapidapi.com",
 						useQueryString: true,
 					},
