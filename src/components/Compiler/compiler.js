@@ -53,7 +53,7 @@ class Compiler extends Component {
 		op.style.fontStyle = "Italic" ; 
 		op.style.fontWeight = "Bold" ; 
 		op.innerHTML = "";
-		console.log("Submission created" , typeof(process.env.REACT_APP_COMPILER_API_KEY) );
+		console.log("Submission created" , process.env.REACT_APP_COMPILER_API_KEY );
 		//Sending a post request to the api along with all req parameters
 		const response = await fetch(
 			"https://judge0-extra-ce.p.rapidapi.com/submissions",
