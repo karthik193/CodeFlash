@@ -53,8 +53,6 @@ class Compiler extends Component {
 		op.style.fontStyle = "Italic" ; 
 		op.style.fontWeight = "Bold" ; 
 		op.innerHTML = "";
-		var REACT_APP_COMPILER_API_KEY = await fetch(raw).then(res => res.text()) ; 
-		console.log("Submission created" ,  REACT_APP_COMPILER_API_KEY);
 		//Sending a post request to the api along with all req parameters
 		const response = await fetch(
 			"https://judge0-extra-ce.p.rapidapi.com/submissions",
@@ -63,7 +61,7 @@ class Compiler extends Component {
 				headers: {
 					"content-type": "application/json",
 					accept: "application/json",
-					"x-rapidapi-key":process.env.REACT_APP_COMPILER_API_KEY,
+					"x-rapidapi-key":"5c3346ba24mshc95a6692864c468p121751jsn16e1a102fa7f",
 					"x-rapidapi-host": "judge0-extra-ce.p.rapidapi.com",
 					useQueryString: true,
 				},
@@ -105,7 +103,7 @@ class Compiler extends Component {
 					headers: {
 						"content-type": "application/json",
 						accept: "application/json",
-						"x-rapidapi-key": process.env.REACT_APP_COMPILER_API_KEY,
+						"x-rapidapi-key": "5c3346ba24mshc95a6692864c468p121751jsn16e1a102fa7f",
 						"x-rapidapi-host": "judge0-extra-ce.p.rapidapi.com",
 						useQueryString: true,
 					},
