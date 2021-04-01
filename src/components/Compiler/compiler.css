@@ -2,7 +2,8 @@ body,
 html {
 	height: 100%;
 	width: 100%;
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 .box-wrapper {
@@ -12,15 +13,16 @@ html {
 }
 #total {
 	padding: 10px;
-	border: solid 1px green;
 	height: 100%;
 }
 
 #code {
 	float: left;
 	resize: none;
-	border: solid 1px orange;
-	background-color: orange;
+	border :none;
+	outline: none;
+	background-color: rgb(245, 241, 241);
+	padding:10px; 
 	height: 100%;
 }
 
@@ -28,13 +30,15 @@ html {
 	float: left;
 	width: auto;
 	height: 100%;
-	background-color: blue;
+	background-color: none;
+	padding-top: 0px;
+	overflow-x: hidden;
+	overflow: auto;
 	padding: 10px;
 }
 
 #inputField {
 	resize: none;
-	background-color: red;
 	float: left;
 	height: 40%;
 	width: 100%;
@@ -42,8 +46,8 @@ html {
 }
 #outputField {
 	resize: none;
-	background-color: green;
 	float: left;
 	height: 58%;
 	width: 100%;
+	outline : none ; 
 }

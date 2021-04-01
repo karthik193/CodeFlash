@@ -1,22 +1,36 @@
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import React, { Component } from "react";
-// import "./Compiler.css";
+import {FcFlashOn}  from "react-icons/fc" ; 
+import defaultCode from '../../storage/compiler/compiler' ; 
 
 class Compiler extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			code: "",
+			code: { 1 : defaultCode[1] , 2 : defaultCode[2] , 4 : defaultCode[4] , 10 : defaultCode[10]},
 			input: "",
 			output: "",
-			lang: 2,
+			lang: 1,
+			stop:false
 		};
 	}
-
+	shouldComponentUpdate(nextProps , nextState ){
+		if(this.state.lang === nextState.lang &&
+			this.state.code === nextState.code &&
+			this.state.stop === nextState.stop)return false; 
+			return true ; 
+	}
 	user_code = (event) => {
 		event.preventDefault();
-		this.setState({ code: event.target.value });
+		console.log(this.state) ; 
+		this.setState( (preVal) =>{
+			return ({
+				...preVal, 
+				code: { ...preVal.code , [this.state.lang] :event.target.value }
+			});
+		});
+
 	};
 
 	user_input = (event) => {
@@ -27,14 +41,15 @@ class Compiler extends Component {
 	user_lang = (event) => {
 		event.preventDefault();
 		this.setState({ lang: event.target.value });
-		console.log(event.target);
-		console.log(event.target.value);
-		console.log(event.target.name);
+		
 	};
 
 	get_output = async (event) => {
 		event.preventDefault();
+		this.setState({stop:false}); 
 		let op = document.getElementById("outputField");
+		op.style.fontStyle = "Italic" ; 
+		op.style.fontWeight = "Bold" ; 
 		op.innerHTML = "";
 		console.log("Submission created");
 		//Sending a post request to the api along with all req parameters
@@ -51,7 +66,7 @@ class Compiler extends Component {
 					useQueryString: true,
 				},
 				body: JSON.stringify({
-					source_code: this.state.code,
+					source_code: this.state.code[this.state.lang],
 					stdin: this.state.input,
 					language_id: this.state.lang,
 				}),
@@ -72,11 +87,13 @@ class Compiler extends Component {
 		while (
 			jsonGetOutput.status.description !== "Accepted" &&
 			jsonGetOutput.stderr == null &&
-			jsonGetOutput.compile_output == null
+			jsonGetOutput.compile_output == null && !this.state.stop
 		) {
 			//checking for any errors
 			//op.innerHTML=`Data Sent ...\nCreating Submission...\n Submission Created...\n Checking submission status\n status : ${jsonGetOutput.status.description}\n`;
 			//to print each line
+			op.value = "black" ; 
+			op.value = "getting Output" ; 
 			if (jsonResponse.token) {
 				let url = `https://judge0-extra-ce.p.rapidapi.com/submissions/${jsonResponse.token}?base64_encoded=true`;
 
@@ -98,25 +115,25 @@ class Compiler extends Component {
 			console.log(jsonGetOutput);
 		}
 		//for the output
-		if (jsonGetOutput.stdout) {
+		
+		//for errors
+		if(this.state.stop){
+			op.value = "Execution Stopped" ; return ; 			
+		}
+
+		if (jsonGetOutput.stderr) {
+			const error = atob(jsonGetOutput.stderr);
+			op.style.color = "red" ; 
+			op.value = `\n Error :${error}`;
+		} else if (jsonGetOutput.stdout) {
 			const output_rec = atob(jsonGetOutput.stdout);
 			//clear output area for the req output
-			op.value = " ";
-			op.value += `\n Output : ${output_rec}\n Execution Time : ${jsonGetOutput.time} secs\n Memory used : ${jsonGetOutput.memory}`;
-		}
-		//for errors
-		else if (jsonGetOutput.stderr) {
-			const error = atob(jsonGetOutput.stderr);
-
-			op.value = "";
-
-			op.value += `\n Error :${error}`;
+			op.style.color = "black" ; 
+			op.value = `Output :\n ${output_rec}\n Execution Time : ${jsonGetOutput.time} secs\n Memory used : ${jsonGetOutput.memory}`;
 		} else {
 			const compilation_error = atob(jsonGetOutput.compile_output);
-
-			op.value = "";
-
-			op.value += `\n Error :${compilation_error}`;
+			op.style.color = "red" ; 
+			op.value = `\n Error :${compilation_error}`;
 		}
 	};
 
@@ -130,14 +147,16 @@ class Compiler extends Component {
 						bg="dark"
 						variant="dark"
 					>
-						<Navbar.Brand href="#home">CodeFlash</Navbar.Brand>
+						<Navbar.Brand>CodeFlash 
+							<FcFlashOn />
+						</Navbar.Brand>
 						<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 						<Navbar.Collapse id="responsive-navbar-nav">
 							<Nav className="mr-auto">
 								<Nav.Link onClick={this.get_output}>
 									Run Code
 								</Nav.Link>
-								<Nav.Link href="#stopExecution">Stop</Nav.Link>
+								<Nav.Link  onClick= {()=>{this.setState({stop:true})}}>Stop</Nav.Link>
 								<NavDropdown
 									title="Language"
 									id="collasible-nav-dropdown"
@@ -181,24 +200,26 @@ class Compiler extends Component {
 						</Navbar.Collapse>
 					</Navbar>
 				</div>
-				<body>
+				<body >
 					<div class="container-fluid box-wrapper">
 						<div id="total">
 							<textarea
 								className="col-xs-12 col-sm-6 col-md-8"
 								id="code"
-								onChange={this.user_code}
+								
+								onChange={e => this.user_code(e)}
+								spellcheck = "false"
+								value = {this.state.code[this.state.lang]}
 							>
-								Editor
 							</textarea>
 							<div class="input-output col-sm-6 col-md-4">
 								<textarea
 									id="inputField"
 									onChange={this.user_input}
+									placeholder = "input"
 								>
-									Input
 								</textarea>
-								<textarea id="outputField">Output</textarea>
+								<textarea id="outputField" readonly = "true" placeholder="Output"></textarea>
 							</div>
 						</div>
 					</div>
