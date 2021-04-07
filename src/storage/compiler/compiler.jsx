@@ -4,5 +4,11 @@ const defaultCode = {
     4: "public class Main\n{\npublic static void main(String[] args) {\nSystem.out.println('Hello World');\n}\n}\n",
     10:"#write your Code here"
 }
-
+const langMap = { 
+    1 :"C" , 
+    2:"C++ 17", 
+    4:"Java",
+    10:"Python 3"
+}
 export default defaultCode ; 
+export {defaultCode , langMap} ; 

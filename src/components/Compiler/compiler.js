@@ -1,7 +1,7 @@
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import React, { Component } from "react";
 import {FcFlashOn}  from "react-icons/fc" ; 
-import defaultCode from '../../storage/compiler/compiler' ; 
+import {defaultCode , langMap}from '../../storage/compiler/compiler' ; 
 class Compiler extends Component {
 	
 	constructor(props) {
@@ -146,7 +146,7 @@ class Compiler extends Component {
 						bg="dark"
 						variant="dark"
 					>
-						<Navbar.Brand>CodeFlash 
+						<Navbar.Brand>CodeFlash
 							<FcFlashOn />
 						</Navbar.Brand>
 						<Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -157,7 +157,7 @@ class Compiler extends Component {
 								</Nav.Link>
 								<Nav.Link  onClick= {()=>{this.setState({stop:true})}}>Stop</Nav.Link>
 								<NavDropdown
-									title="Language"
+									title={langMap[this.state.lang]}
 									id="collasible-nav-dropdown"
 									value={this.state.lang}
 								>
@@ -167,7 +167,7 @@ class Compiler extends Component {
 											this.setState({ lang: 1 })
 										}
 									>
-										C
+										{langMap[1]}
 									</NavDropdown.Item>
 									<NavDropdown.Item
 										value={2}
